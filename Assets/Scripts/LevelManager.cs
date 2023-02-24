@@ -9,10 +9,6 @@ public class LevelManager : MonoBehaviour
 
     ScoreKeeper scoreKeeper;
 
-    void Awake()
-    {
-    }
-
     public void LoadGame()
     {
         scoreKeeper = FindObjectOfType<ScoreKeeper>();

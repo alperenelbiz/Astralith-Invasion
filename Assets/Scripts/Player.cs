@@ -17,6 +17,11 @@ public class Player : MonoBehaviour
 
     Shooter shooter;
 
+
+    //mobile
+    public FloatingJoystick joystick;
+    Rigidbody2D rb;
+
     void Awake()
     {
         shooter = GetComponent<Shooter>();
@@ -24,12 +29,18 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         InitBounds();
     }
 
     void Update()
     {
         Move();
+    }
+
+    void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + rawInput * playerSpeed * Time.fixedDeltaTime);
     }
 
     void InitBounds()
@@ -41,6 +52,8 @@ public class Player : MonoBehaviour
 
     void Move()
     {
+        rawInput.x = joystick.Horizontal;
+        rawInput.y = joystick.Vertical;
         Vector2 delta = rawInput * playerSpeed * Time.deltaTime;
         Vector2 newPosition = new Vector2();
         newPosition.x = Mathf.Clamp(transform.position.x + delta.x, minBounds.x + paddingLeft, maxBounds.x - paddingRight);

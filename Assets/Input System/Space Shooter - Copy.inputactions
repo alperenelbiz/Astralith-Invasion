@@ -126,8 +126,8 @@
                 },
                 {
                     "name": "",
-                    "id": "c85a965f-7e39-4311-81c4-f70e66a286f4",
-                    "path": "<Gamepad>/dpad",
+                    "id": "ff2bfec2-dec4-4640-8377-78816b5ece9e",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",

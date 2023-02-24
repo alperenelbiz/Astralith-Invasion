@@ -10,8 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5731138373300153293}
   - component: {fileID: 465422942}
+  - component: {fileID: -446593431185830198}
+  - component: {fileID: 8196316094352641859}
   - component: {fileID: 465422943}
-  m_Layer: 0
+  - component: {fileID: 7273449573037507817}
+  - component: {fileID: 3478229888730748713}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5731138373300153292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: -3.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -64,6 +68,53 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!50 &-446593431185830198
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5731138373300153292}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!61 &8196316094352641859
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5731138373300153292}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &465422943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +132,43 @@ MonoBehaviour:
   paddingRight: 0.62
   paddingTop: 5
   paddingBottom: 2
+--- !u!114 &7273449573037507817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5731138373300153292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15a07c38ff7c3894993b53f3c2ce43de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 1
+  health: 2147483647
+  score: 50
+  hitEffect: {fileID: 1886517320174117541, guid: 4be52bf4c6e879944876f73746c92d5c, type: 3}
+  applyCameraShake: 1
+--- !u!114 &3478229888730748713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5731138373300153292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad148a0a1a2ae04ba0e5a8d56cf74e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projecttilePrefab: {fileID: 1018682473609694587, guid: 5235dfbf66feccb4988f16b03852e22d, type: 3}
+  projectileSpeed: 10
+  projectileLifetime: 5
+  baseFiringRate: 0.4
+  useAI: 0
+  firingRateVariance: 0
+  minimumFiringRate: 0
+  isFiring: 0
 --- !u!1 &5731138373575565699
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5731138373575565700}
   - component: {fileID: 5731138373575565701}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ship-Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +241,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e7782270b3836c24fbd94dc2a7945ada, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    [Header("Sprite")]
+    [SerializeField] SpriteRenderer shipRenderer;
+    [SerializeField] Sprite normalShip;
+    [SerializeField] Sprite shieldShip;
+
+    [Header("Values")]
     [SerializeField] bool isPlayer;
     [SerializeField] int health = 50;
     [SerializeField] int score = 50;
     [SerializeField] ParticleSystem hitEffect;
+    int shield = 0;
+    int lockHealth;
 
     [SerializeField] bool applyCameraShake;
 
@@ -15,6 +23,7 @@ public class Health : MonoBehaviour
     AudioPlayer audioPlayer;
     ScoreKeeper scoreKeeper;
     LevelManager levelManager;
+    Upgrader upgrader;
 
     void Awake()
     {
@@ -22,11 +31,31 @@ public class Health : MonoBehaviour
         audioPlayer = FindObjectOfType<AudioPlayer>();
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         levelManager = FindObjectOfType<LevelManager>();
+        upgrader = FindObjectOfType<Upgrader>();
+        shipRenderer = GetComponent<SpriteRenderer>();
+        lockHealth = health;
     }
 
+    void Update()
+    {
+        if (shield == 0)
+        {
+            shipRenderer.sprite = normalShip;
+        }
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         DamageDealer damageDealer = collision.GetComponent<DamageDealer>();
+        HealthDealer healthDealer = collision.GetComponent<HealthDealer>();
+        ShieldDealer shieldDealer = collision.GetComponent<ShieldDealer>();
+
+        if (shieldDealer != null)
+        {
+            audioPlayer.PlayShieldClip();
+            shipRenderer.sprite = shieldShip;
+            shield += shieldDealer.GetShield();
+            shieldDealer.Hit();
+        }
 
         if (damageDealer != null)
         {
@@ -36,11 +65,38 @@ public class Health : MonoBehaviour
             ShakeCamera();
             damageDealer.Hit();
         }
+
+        else if (healthDealer != null)
+        {
+            audioPlayer.PlayHealthClip();
+            health += healthDealer.GetHealth();
+            healthDealer.Hit();
+
+            if (health > lockHealth)
+            {
+                health = lockHealth;
+            }
+        }
     }
 
     void TakeDamage(int damage)
     {
-        health -= damage;
+        if (shield > 0 && damage > shield)
+        {
+            shield -= damage;
+            health += shield;
+            shield = 0;
+        }
+
+        else if (shield > 0)
+        {
+            shield -= damage;
+        }
+
+        else
+        {
+            health -= damage;
+        }
 
         if (health <= 0)
         {
@@ -53,6 +109,7 @@ public class Health : MonoBehaviour
         if (!isPlayer)
         {
             scoreKeeper.ModifyScore(score);
+            upgrader.Drop();
         }
 
         else

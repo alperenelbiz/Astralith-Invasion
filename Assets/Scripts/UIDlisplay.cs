@@ -10,6 +10,10 @@ public class UIDlisplay : MonoBehaviour
     [SerializeField] Slider healthSlider;
     [SerializeField] Health playerHealth;
 
+    [Header("Shield")]
+    [SerializeField] Slider shieldSlider;
+    [SerializeField] Health palyerShield;
+
     [Header("Score")]
     [SerializeField] TextMeshProUGUI scoreText;
     ScoreKeeper scoreKeeper;

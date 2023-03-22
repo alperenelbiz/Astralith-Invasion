@@ -9,6 +9,8 @@ public class Shooter : MonoBehaviour
     [SerializeField] float projectileSpeed = 10f;
     [SerializeField] float projectileLifetime = 5f;
     [SerializeField] float baseFiringRate = 2f;
+    [SerializeField] float punishmentRate = 1f;
+    float lockRate;
 
     [Header("AI")]
     [SerializeField] bool useAI;
@@ -27,6 +29,7 @@ public class Shooter : MonoBehaviour
 
     void Start()
     {
+        lockRate = baseFiringRate;
         if (useAI)
         {
             isFiring = true;
@@ -36,6 +39,33 @@ public class Shooter : MonoBehaviour
     void Update()
     {
         Fire();
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        FirerateDealer firerateDealer = collision.GetComponent<FirerateDealer>();
+        DamageDealer damageDealer = collision.GetComponent<DamageDealer>();
+
+        if (damageDealer != null)
+        {
+            baseFiringRate += punishmentRate;
+
+            if (baseFiringRate < lockRate)
+            {
+                baseFiringRate = lockRate;
+            }
+        }
+
+        if (firerateDealer != null)
+        {
+            baseFiringRate -= firerateDealer.GetFirerate();
+            firerateDealer.Hit();
+
+            if (baseFiringRate < 0.1f)
+            {
+                baseFiringRate = 0.1f;
+            }
+        }
     }
 
     void Fire()

@@ -6,13 +6,53 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] List<WaveConfigSO> waveConfig;
     [SerializeField] float timeBetweenWaves = 1f;
+    [SerializeField] float timeReducer = 0.5f;
+    [SerializeField] int acceleratorScore = 0;
+    [SerializeField] int bossScore= 0;
     [SerializeField] bool isLooping;
 
+    bool canFast = true;
+
     WaveConfigSO currentWave;
+    ScoreKeeper scoreKeeper;
+
+    void Awake()
+    {
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
+    }
 
     void Start()
     {
         StartCoroutine(SpawnEnemies());
+    }
+
+    void Update()
+    {
+        MakeItFaster();
+
+        if (timeBetweenWaves == 0 && scoreKeeper.GetScore() % bossScore==0)
+        {
+
+        }
+    }
+
+    void MakeItFaster()
+    {
+        if (scoreKeeper.GetScore() % acceleratorScore == 0 && canFast)
+        {
+            timeBetweenWaves -= timeReducer;
+            canFast = false;
+        }
+
+        else if (scoreKeeper.GetScore() % acceleratorScore != 0)
+        {
+            canFast = true;
+        }
+
+        if (timeBetweenWaves < 0)
+        {
+            timeBetweenWaves = 0;
+        }
     }
 
     public WaveConfigSO GetCurrentWave()
@@ -36,6 +76,11 @@ public class EnemySpawner : MonoBehaviour
                                 transform);
 
                     yield return new WaitForSeconds(currentWave.GetRandomSpawnTime());
+                }
+
+                if (scoreKeeper.GetScore() % acceleratorScore == 0)
+                {
+                    timeBetweenWaves -= timeReducer;
                 }
 
                 yield return new WaitForSeconds(timeBetweenWaves);

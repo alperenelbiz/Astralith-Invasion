@@ -21,6 +21,11 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene("Main Menu");
     }
 
+    public void LoadRoadmap()
+    {
+        SceneManager.LoadScene("Roadmap");
+    }
+
     public void LoadGameOver()
     {
         StartCoroutine(WaitAndLoad("Game Over", sceneLoadDelay));

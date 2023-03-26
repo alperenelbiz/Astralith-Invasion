@@ -521,6 +521,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 2017505417}
   playerHealth: {fileID: 195433372}
+  shieldSlider: {fileID: 0}
+  palyerShield: {fileID: 0}
   scoreText: {fileID: 440109418}
 --- !u!1 &519420028
 GameObject:
@@ -1145,7 +1147,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8ab175914030f8441b827b37ce76b017, type: 2}
   - {fileID: 11400000, guid: fefcd843bec4c474990eb1aa9039c319, type: 2}
   - {fileID: 11400000, guid: 32b5d22a31ea03e4d93361c1640d5e38, type: 2}
-  timeBetweenWaves: 4
+  timeBetweenWaves: 7
+  timeReducer: 1
+  acceleratorScore: 200
+  bossScore: 0
   isLooping: 1
 --- !u!4 &1848767281
 Transform:
@@ -1278,11 +1283,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1491726059012070684, guid: 83c351c4ecfc73545997ee33727437df, type: 3}
       propertyPath: Mute
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1491726059012070684, guid: 83c351c4ecfc73545997ee33727437df, type: 3}
       propertyPath: m_Volume
       value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1491726059012070684, guid: 83c351c4ecfc73545997ee33727437df, type: 3}
+      propertyPath: BypassEffects
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1491726059012070685, guid: 83c351c4ecfc73545997ee33727437df, type: 3}
       propertyPath: m_RootOrder

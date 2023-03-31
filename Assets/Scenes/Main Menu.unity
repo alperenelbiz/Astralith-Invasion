@@ -316,9 +316,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'LASER
-
-    DEFENDER'
+  m_text: Astralith Invasion
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 46394974b3cb11348a8379367107f878, type: 2}
   m_sharedMaterial: {fileID: -5537619272409076446, guid: 46394974b3cb11348a8379367107f878, type: 2}
